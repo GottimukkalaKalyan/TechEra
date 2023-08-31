@@ -1,0 +1,22 @@
+.eachCourseContainer {
+  list-style-type: none;
+  display: flex;
+  margin: 10px 20px 10px 0px;
+  padding: 10px;
+  width: 150px;
+}
+
+.courseName {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.courseImage {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.linkTag {
+  text-decoration: none;
+  color: black;
+}

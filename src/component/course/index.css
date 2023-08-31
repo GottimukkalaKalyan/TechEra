@@ -1,53 +1,52 @@
-import styled from 'styled-components'
-
-export const EachCourseContainer = styled.div`
+.EachCourseContainer {
   width: 100vw;
   display: flex;
   justify-content: center;
   padding: 30px;
-`
+  /* border: 2px solid red; */
+}
 
-export const CourseName = styled.div`
+.CourseName {
   width: 80%;
-  //   border: 2px solid red;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: black;
   border-radius: 10px;
   box-shadow: 1px 1px 20px 2px;
-`
+}
 
-export const CourseImage = styled.img`
+.CourseImage {
   width: 250px;
   height: 100%;
   margin-right: 10px;
-`
-export const CourseDetailsContainer = styled.div`
+}
+.CourseDetailsContainer {
   width: 100%;
   padding: 20px;
-`
-export const FailureImage = styled.img`
+}
+.FailureImage {
   width: 400px;
-`
-export const FailureTitle = styled.h1`
+}
+.FailureTitle {
   font-size: 25px;
   margin: 0px;
   margin-top: 20px;
-`
-export const CourseNameTitle = styled.h1`
+}
+.CourseNameTitle {
   font-size: 30px;
   margin-bottom: 20px;
-`
-export const FailureDescription = styled.p`
+}
+.FailureDescription {
   font-size: 15px;
-`
-export const CourseDescription = styled.p`
+}
+.CourseDescription {
   font-size: 20px;
   font-weight: 500;
   color: #475569;
-`
-export const RetryButton = styled.button`
+}
+
+.RetryButton {
   font-size: 15px;
   padding: 10px 20px 10px 20px;
   font-weight: bold;
@@ -56,11 +55,12 @@ export const RetryButton = styled.button`
   border: none;
   outline: none;
   border-radius: 4px;
-`
-export const LoaderContainer = styled.div`
+}
+
+.loader-Container {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+}

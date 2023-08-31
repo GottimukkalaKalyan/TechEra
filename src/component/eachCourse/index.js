@@ -1,22 +1,16 @@
-import {
-  EachCourseContainer,
-  CourseImage,
-  CourseName,
-  LinkTag,
-} from './styledcomponent'
+import './index.css'
+import {Link} from 'react-router-dom'
 
 const EachCourse = props => {
   const {data} = props
   const {id, logoUrl, name} = data
   return (
-    <>
-      <LinkTag to={`/courses/${id}`}>
-        <EachCourseContainer>
-          <CourseImage src={logoUrl} alt={name} />
-          <CourseName>{name}</CourseName>
-        </EachCourseContainer>
-      </LinkTag>
-    </>
+    <Link className="linkTag" to={`/courses/${id}`}>
+      <li className="eachCourseContainer">
+        <img className="courseImage" src={logoUrl} alt={name} />
+        <p className="courseName">{name}</p>
+      </li>
+    </Link>
   )
 }
 

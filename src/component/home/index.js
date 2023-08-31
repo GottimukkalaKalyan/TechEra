@@ -1,39 +1,34 @@
 import {Component} from 'react'
 
-import Loader from 'react-loader-spinner'
-
-import {
-  HomeMainContainer,
-  HomeContentContainer,
-  CoursesContainer,
-  LoaderContainer,
-  FailureImage,
-  FailureTitle,
-  FailureDescription,
-  RetryButton,
-  CoursesListContainer,
-} from './styledcomponent'
+import './index.css'
 
 import NavBar from '../navbar'
 import EachCourse from '../eachCourse'
+import FailureView from '../failureview'
+import LoadingView from '../loading'
 
 const apiStatusList = {
+  initial: 'INITIAL',
   success: 'SUCCESS',
   inProgress: 'IN_PROGRESS',
   failure: 'FAILURE',
 }
 
 class Home extends Component {
-  state = {allCourses: [], apiStatus: apiStatusList.inProgress}
+  state = {allCourses: [], apiStatus: apiStatusList.initial}
 
   componentDidMount() {
     this.getData()
   }
 
   getData = async () => {
-    const response = await fetch('https://apis.ccbp.in/te/courses')
+    this.setState({apiStatus: apiStatusList.inProgress})
+    const apiUrl = 'https://apis.ccbp.in/te/courses'
+    const options = {
+      method: 'GET',
+    }
+    const response = await fetch(apiUrl, options)
     const responseData = await response.json()
-    console.log(responseData)
     if (response.ok) {
       const newData = responseData.courses.map(eachOne => ({
         id: eachOne.id,
@@ -42,42 +37,24 @@ class Home extends Component {
       }))
       this.setState({allCourses: newData, apiStatus: apiStatusList.success})
     } else {
-      this.state({apiStatus: apiStatusList.failure})
+      this.setState({apiStatus: apiStatusList.failure})
     }
   }
 
   getSuccessView = () => {
     const {allCourses} = this.state
     return (
-      <CoursesListContainer>
+      <ul className="CoursesListContainer">
         {allCourses.map(each => (
-          <EachCourse data={each} key={each.id} />
+          <EachCourse data={each} key={each.name} />
         ))}
-      </CoursesListContainer>
+      </ul>
     )
   }
 
-  getFailureView = () => (
-    <LoaderContainer>
-      <FailureImage
-        src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
-        alt="failure view"
-      />
-      <FailureTitle>Oops! Something Went Wrong</FailureTitle>
-      <FailureDescription>
-        We cannot seem to find the page you are looking for.
-      </FailureDescription>
-      <RetryButton type="button" onClick={this.getData}>
-        Retry
-      </RetryButton>
-    </LoaderContainer>
-  )
+  getFailureView = () => <FailureView retryButton={this.getData} />
 
-  getLoadingView = () => (
-    <LoaderContainer data-testid="loader">
-      <Loader type="ThreeDots" color="black" width="50px" />
-    </LoaderContainer>
-  )
+  getLoadingView = () => <LoadingView />
 
   getResult = () => {
     const {apiStatus} = this.state
@@ -97,13 +74,13 @@ class Home extends Component {
     const {allCourses, apiStatus} = this.state
     console.log(allCourses, apiStatus)
     return (
-      <HomeMainContainer>
+      <div className="HomeMainContainer">
         <NavBar />
-        <HomeContentContainer>
+        <div className="HomeContentContainer">
           <h1>Courses</h1>
-          <CoursesContainer>{this.getResult()}</CoursesContainer>
-        </HomeContentContainer>
-      </HomeMainContainer>
+          <div className="CoursesContainer">{this.getResult()}</div>
+        </div>
+      </div>
     )
   }
 }

@@ -1,0 +1,19 @@
+.notfoundMainContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.notfoundContent {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  border-radius: 10px;
+}
+
+.notfoundImage {
+  width: 400px;
+}

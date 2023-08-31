@@ -1,24 +1,12 @@
 import {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import Loader from 'react-loader-spinner'
-
-import {
-  EachCourseContainer,
-  CourseName,
-  FailureImage,
-  FailureTitle,
-  FailureDescription,
-  RetryButton,
-  LoaderContainer,
-  CourseImage,
-  CourseDetailsContainer,
-  CourseDescription,
-  CourseNameTitle,
-} from './styledcomponent'
-
+import './index.css'
 import NavBar from '../navbar'
+import FailureView from '../failureview'
+import LoadingView from '../loading'
 
 const apiStatusList = {
+  initial: 'INITIAL',
   success: 'SUCCESS',
   inProgress: 'IN_PROGRESS',
   failure: 'FAILURE',
@@ -51,7 +39,7 @@ class CourseData extends Component {
       })
     } else {
       this.setState({
-        apiStatus: apiStatusList.success,
+        apiStatus: apiStatusList.failure,
       })
     }
   }
@@ -60,37 +48,19 @@ class CourseData extends Component {
     const {courseDetails} = this.state
     const {description, imageUrl, name} = courseDetails
     return (
-      <CourseName>
-        <CourseImage src={imageUrl} alt={name} />
-        <CourseDetailsContainer>
-          <CourseNameTitle>{name}</CourseNameTitle>
-          <CourseDescription>{description}</CourseDescription>
-        </CourseDetailsContainer>
-      </CourseName>
+      <div className="CourseName">
+        <img className="CourseImage" src={imageUrl} alt={name} />
+        <div className="CourseDetailsContainer">
+          <h1 className="CourseNameTitle">{name}</h1>
+          <p className="CourseDescription">{description}</p>
+        </div>
+      </div>
     )
   }
 
-  getFailureView = () => (
-    <LoaderContainer>
-      <FailureImage
-        src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
-        alt="failure view"
-      />
-      <FailureTitle>Oops! Something Went Wrong</FailureTitle>
-      <FailureDescription>
-        We cannot seem to find the page you are looking for.
-      </FailureDescription>
-      <RetryButton type="button" onClick={this.getData}>
-        Retry
-      </RetryButton>
-    </LoaderContainer>
-  )
+  getFailureView = () => <FailureView retryButton={this.getData} />
 
-  getLoadingView = () => (
-    <LoaderContainer data-testid="loader">
-      <Loader type="ThreeDots" color="black" width="50px" />
-    </LoaderContainer>
-  )
+  getLoadingView = () => <LoadingView />
 
   getResult = () => {
     const {apiStatus} = this.state
@@ -110,7 +80,7 @@ class CourseData extends Component {
     return (
       <>
         <NavBar />
-        <EachCourseContainer>{this.getResult()}</EachCourseContainer>
+        <div className="EachCourseContainer">{this.getResult()}</div>
       </>
     )
   }
